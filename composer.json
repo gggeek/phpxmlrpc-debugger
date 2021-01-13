@@ -1,0 +1,14 @@
+{
+  "name": "phpxmlrpc/combo",
+  "description": "Pulling together all the different packages",
+  "require": {
+    "phpxmlrpc/phpxmlrpc": "dev-master as 4.6-dev",
+    "phpxmlrpc/jsonrpc": "1.0.0-alpha",
+    "phpxmlrpc/extras": "1.0.0-alpha"
+  },
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    }
+  }
+}
