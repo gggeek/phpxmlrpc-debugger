@@ -6,9 +6,17 @@ use PhpXmlRpc\Value;
 use PhpXmlRpc\Extras\SelfDocumentingServer;
 use PhpXmlRpc\JsonRpc\Server as JsonRpcServer;
 
-include_once __DIR__.'/../../vendor/autoload.php';
+$vendorDir = __DIR__.'/../../vendor';
+if (!is_dir($vendorDir)) {
+    $vendorDir = __DIR__.'/../../../../../vendor';
+}
+include_once $vendorDir.'/autoload.php';
 
-$signaturesDir = __DIR__.'/../../vendor/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
+$signatures = array();
+
+$signaturesDir = $vendorDir.'/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
+
+if (is_dir($signaturesDir))  {
 
 // Most of the code used to implement the webservices, and their signatures, are stowed away in neatly organized
 // files, each demoing a different topic
@@ -43,7 +51,7 @@ function findStateWithNulls($req)
 
 $object = new xmlrpcServerMethodsContainer();
 
-$signatures = array(
+$signatures5 = array(
 
     // signature omitted on purpose
     "tests.generatePHPWarning" => array(
@@ -73,7 +81,9 @@ $signatures = array(
     ),
 );
 
-$signatures = array_merge($signatures, $signatures1, $signatures2, $signatures3, $signatures4);
+$signatures = array_merge($signatures1, $signatures2, $signatures3, $signatures4, $signatures5);
+
+}
 
 // Enable support for the NULL extension
 PhpXmlRpc::$xmlrpc_null_extension = true;
@@ -85,7 +95,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') &&
     $s = new SelfDocumentingServer($signatures, false);
 }
 
-$s->setDebug(3);
+// NB: when enabling debug mode, the server prepends the response's Json payload with a javascript comment.
+// This will be considered an invalid response by most json-rpc client found in the wild - except our client of course
+if (isset($_GET['FORCE_DEBUG'])) {
+    $s->setDebug($_GET['FORCE_DEBUG']);
+}
 $s->compress_response = true;
 
 // Out-of-band information: let the client manipulate the server operations.

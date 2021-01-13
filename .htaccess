@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+  # FollowSymLinks is required in order to enable RewriteEngine, in case all options are off
+  Options FollowSymLinks Indexes
+
+  RewriteEngine on
+  # Stuff to block
+  RewriteCond %{REQUEST_URI} "/vendor/*"
+  RewriteRule (.*) / [R=403,L]
+</IfModule>
