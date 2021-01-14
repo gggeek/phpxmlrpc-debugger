@@ -1,16 +1,23 @@
 <?php
 
-use PhpXmlRpc\PhpXmlRpc;
-use PhpXmlRpc\Response;
-use PhpXmlRpc\Value;
-use PhpXmlRpc\Extras\SelfDocumentingServer;
-use PhpXmlRpc\JsonRpc\Server as JsonRpcServer;
+if (isset($_GET['showSource']) && $_GET['showSource']) {
+    $file = debug_backtrace()[0]['file'];
+    highlight_file($file);
+    die();
+}
 
+// support being installed both as top-level project and as dependency
 $vendorDir = __DIR__.'/../../vendor';
 if (!is_dir($vendorDir)) {
     $vendorDir = __DIR__.'/../../../../../vendor';
 }
 include_once $vendorDir.'/autoload.php';
+
+use PhpXmlRpc\PhpXmlRpc;
+use PhpXmlRpc\Response;
+use PhpXmlRpc\Value;
+use PhpXmlRpc\Extras\SelfDocumentingServer;
+use PhpXmlRpc\JsonRpc\Server as JsonRpcServer;
 
 $signatures = array();
 
