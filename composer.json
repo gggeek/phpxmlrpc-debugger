@@ -1,10 +1,10 @@
 {
   "name": "phpxmlrpc/combo",
-  "description": "Pulling together all the different packages",
+  "description": "Pulling together all the different phpxmlrpc packages",
   "require": {
-    "phpxmlrpc/phpxmlrpc": "dev-master as 4.6-dev",
-    "phpxmlrpc/jsonrpc": "1.0.0-alpha",
-    "phpxmlrpc/extras": "1.0.0-alpha"
+    "phpxmlrpc/phpxmlrpc": ">= 4.5.1",
+    "phpxmlrpc/jsonrpc": ">=1.0.0-alpha",
+    "phpxmlrpc/extras": ">= 1.0.0-alpha"
   },
   "config": {
     "preferred-install": {
