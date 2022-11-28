@@ -13,15 +13,15 @@ if (!is_dir($vendorDir)) {
 }
 include_once $vendorDir.'/autoload.php';
 
+use PhpXmlRpc\Extras\SelfDocumentingServer;
+use PhpXmlRpc\JsonRpc\Server as JsonRpcServer;
 use PhpXmlRpc\PhpXmlRpc;
 use PhpXmlRpc\Response;
 use PhpXmlRpc\Value;
-use PhpXmlRpc\Extras\SelfDocumentingServer;
-use PhpXmlRpc\JsonRpc\Server as JsonRpcServer;
 
 $signatures = array();
 
-$signaturesDir = $vendorDir.'/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
+$signaturesDir = $vendorDir . '/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
 
 if (is_dir($signaturesDir))  {
 
@@ -95,7 +95,7 @@ $signatures = array_merge($signatures1, $signatures2, $signatures3, $signatures4
 // Enable support for the NULL extension
 PhpXmlRpc::$xmlrpc_null_extension = true;
 
-if (($_SERVER['REQUEST_METHOD'] == 'POST') &&
+if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_SERVER['CONTENT_TYPE']) &&
     (strpos($_SERVER["CONTENT_TYPE"], 'json') !== false || strpos($_SERVER["CONTENT_TYPE"], 'javascript') !== false)) {
     $s = new JsonRpcServer($signatures, false);
 } else {
@@ -121,7 +121,7 @@ if (isset($_GET['EXCEPTION_HANDLING'])) {
     $s->exception_handling = $_GET['EXCEPTION_HANDLING'];
 }
 if (isset($_GET['FORCE_AUTH'])) {
-    // We implement both  Basic and Digest auth in php to avoid having to set it up in a vhost.
+    // We implement both Basic and Digest auth in php to avoid having to set it up in a vhost.
     // Code taken from php.net
     // NB: we do NOT check for valid credentials!
     if ($_GET['FORCE_AUTH'] == 'Basic') {

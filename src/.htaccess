@@ -1,3 +1,5 @@
+# @todo reimplement for the 2 "apps" we will server - set up a proper vhost?
+
 <IfModule mod_rewrite.c>
   # FollowSymLinks is required in order to enable RewriteEngine, in case all options are off
   Options FollowSymLinks Indexes
