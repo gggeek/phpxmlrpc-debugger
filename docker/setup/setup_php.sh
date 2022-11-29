@@ -132,9 +132,11 @@ if [ -f "/etc/init.d/php${PHPVER}-fpm" ]; then
 fi
 if [ -f "/lib/systemd/system/php${PHPVER}-fpm.service" ]; then
     ln -s "/lib/systemd/system/php${PHPVER}-fpm.service" /lib/systemd/system/php-fpm.service
-    if [ ! -f /.dockerenv ]; then
-        systemctl daemon-reload
-    fi
+    # @todo this file is present when the container is built by docker, but not when it is built by builds, such as we use on GHA.
+    #       We should find a more reliable way to determine execution inside/outside a container
+    #if [ ! -f /.dockerenv ]; then
+    #    systemctl daemon-reload
+    #fi
 fi
 
 # @todo shall we configure php-fpm?
