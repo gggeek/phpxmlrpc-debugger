@@ -2,6 +2,11 @@ ARG UBUNTU_VERSION=jammy
 
 FROM ubuntu:${UBUNTU_VERSION}
 
+# other possible org.opencontainers.image labels: title, vendor
+LABEL org.opencontainers.image.source=https://github.com/gggeek/phpxmlrpc-debugger
+LABEL org.opencontainers.image.description="An xmlrpc and jsonrpc graphical debugger, made available as Docker container "
+LABEL org.opencontainers.image.licenses=BSD
+
 ARG PHP_VERSION=default
 
 COPY docker/setup/*.sh /root/setup/
@@ -16,13 +21,16 @@ RUN mkdir -p /usr/share/man/man1 && \
   ./setup_apache.sh && \
   ./setup_php.sh "${PHP_VERSION}" && \
   ./setup_composer.sh && \
-  chmod 755 /root/entrypoint.sh
+  chmod 755 /root/entrypoint.sh && \
+  apt-get autoremove -y && \
+  apt-get purge -y --auto-remove && \
+  rm -rf /var/lib/apt/lists/* /var/log/alternatives.log /var/log/apt/* /var/log/dpkg.log
 
 # has to be here for the www-data user to exist
 COPY --chown=www-data:www-data src /var/www/html/
 
 RUN /root/setup/setup_app.sh /var/www/html && \
-    /root/setup/cleanup_build.sh
+    rm -rf /root/.cache/composer/
 
 EXPOSE 80 443
 

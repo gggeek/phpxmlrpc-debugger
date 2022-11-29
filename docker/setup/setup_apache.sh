@@ -10,7 +10,8 @@ set -e
 
 SCRIPT_DIR="$(dirname -- "$(readlink -f "$0")")"
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y apache2
+DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    apache2
 
 # set up Apache for php-fpm
 

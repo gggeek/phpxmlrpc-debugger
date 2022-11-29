@@ -19,7 +19,7 @@ TAG=$(curl -s https://api.github.com/repos/gggeek/jsxmlrpc/releases/latest | gre
 curl -L -o jsxmlrpc.zip "https://github.com/gggeek/jsxmlrpc/archive/refs/tags/${TAG}.zip"
 unzip jsxmlrpc.zip
 mv jsxmlrpc-* jsxmlrpc
-mkdir /var/www/html/debugger/jsxmlrpc
+if [ ! -d /var/www/html/debugger/jsxmlrpc ]; then mkdir -p /var/www/html/debugger/jsxmlrpc; fi
 cp -R jsxmlrpc/lib /var/www/html/debugger/jsxmlrpc
 cp -R jsxmlrpc/debugger /var/www/html/debugger/jsxmlrpc
 chown -R www-data:www-data /var/www/html/debugger/jsxmlrpc
