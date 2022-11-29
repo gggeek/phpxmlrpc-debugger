@@ -9,11 +9,16 @@ Also makes available a 'demo' combined xmlrpc/jsonrpoc server, which can be used
 
 Installation
 ------------
-...
+
+Atm the container is not in a public Docker Container repository.
+
+    git clone https://github.com/gggeek/phpxmlrpc-debugger.git
+    docker build -t phpxmlrpc_debugger phpxmlrpc-debugger
 
 Usage
 -----
-...
+
+    docker run -ti -p 80:80 -p 443:443 phpxmlrpc_debugger:latest
 
 License
 -------

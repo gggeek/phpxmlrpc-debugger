@@ -2,7 +2,7 @@
   "name": "phpxmlrpc/debugger",
   "description": "Pulling together all the different phpxmlrpc packages to provide a batteries-included debugger and demo server",
   "require": {
-    "phpxmlrpc/phpxmlrpc": ">= 4.5.1",
+    "phpxmlrpc/phpxmlrpc": ">= 4.9.0",
     "phpxmlrpc/jsonrpc": ">=1.0.0-alpha",
     "phpxmlrpc/extras": ">= 1.0.0-alpha"
   },
@@ -10,6 +10,7 @@
   "prefer-stable": true,
   "config": {
     "preferred-install": {
+      "phpxmlrpc/phpxmlrpc": "source",
       "*": "dist"
     }
   }
