@@ -5,18 +5,20 @@ An xmlrpc and jsonrpc graphical debugger, made available as Docker container.
 
 Also makes available a 'demo' combined xmlrpc/jsonrpoc server, which can be used as test target.
 
+Based on the https://github.com/gggeek/phpxmlrpc, https://github.com/gggeek/phpxmlrpc-jsonrpc and
+https://github.com/gggeek/jsxmlrpc libraries.
+
 Installation
 ------------
 
-Atm the container is not in a public Docker Container repository.
-
-    git clone https://github.com/gggeek/phpxmlrpc-debugger.git
-    docker build -t phpxmlrpc-debugger phpxmlrpc-debugger
+    docker pull ghcr.io/gggeek/phpxmlrpc-debugger:latest
 
 Usage
 -----
 
-    docker run -ti -p 80:80 -p 443:443 phpxmlrpc-debugger:latest
+    docker run -ti -p 80:80 -p 443:443 ghcr.io/gggeek/phpxmlrpc-debugger:latest
+
+Then access `http://localhost/`, or whatever the hostname/IP is of the VM used to run the Container.
 
 Notes:
 
@@ -30,6 +32,15 @@ Notes:
   letsencrypt.org
 
 * the parameters to access the demo server from the debugger are: `host: localhost`, `path: /demo/`
+
+Development
+-----------
+
+To build and test locally the Container, you should follow a workflow similar to:
+
+    git clone https://github.com/gggeek/phpxmlrpc-debugger.git
+    docker build -t phpxmlrpc-debugger phpxmlrpc-debugger-local
+    docker run -ti -p 80:80 -p 443:443 ghcr.io/gggeek/phpxmlrpc-debugger-local
 
 License
 -------
