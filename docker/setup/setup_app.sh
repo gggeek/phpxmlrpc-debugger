@@ -14,7 +14,9 @@ chown -R www-data:www-data vendor
 
 # @todo we should move this block to composer.json
 cd /tmp
-curl -L -o jsxmlrpc.zip $(curl -s https://api.github.com/repos/gggeek/jsxmlrpc/releases/latest | grep "browser_download_url.*zip" | cut -d : -f 2,3 | tr -d \")
+# @todo use the zip file matching the tag - the other one misses the visualeditor.php file
+TAG=$(curl -s https://api.github.com/repos/gggeek/jsxmlrpc/releases/latest | grep "tag_name" | cut -d : -f 2,3 | tr -d \" | tr -d , | tr -d ' ')
+curl -L -o jsxmlrpc.zip "https://github.com/gggeek/jsxmlrpc/archive/refs/tags/${TAG}.zip"
 unzip jsxmlrpc.zip
 mv jsxmlrpc-* jsxmlrpc
 mkdir /var/www/html/debugger/jsxmlrpc

@@ -21,7 +21,8 @@ RUN mkdir -p /usr/share/man/man1 && \
 # has to be here for the www-data user to exist
 COPY --chown=www-data:www-data src /var/www/html/
 
-RUN /root/setup/setup_app.sh /var/www/html
+RUN /root/setup/setup_app.sh /var/www/html && \
+    /root/setup/cleanup_build.sh
 
 EXPOSE 80 443
 
