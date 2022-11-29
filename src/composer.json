@@ -11,6 +11,7 @@
   "config": {
     "preferred-install": {
       "phpxmlrpc/phpxmlrpc": "source",
+      "phpxmlrpc/jsonrpc": "source",
       "*": "dist"
     }
   }

@@ -25,8 +25,8 @@ service php-fpm start
 echo "[$(date)] Starting the Web server..."
 service apache2 start
 
-echo "[$(date)] Bootstrap finished"
+echo "[$(date)] Bootstrap finished. Apache error logs follows"
 
-tail -f /dev/null &
+tail -f /var/log/apache2/error.log &
 child=$!
 wait "$child"
