@@ -7,4 +7,6 @@ if (!file_exists($vendorDir.'/autoload.php') || !file_exists($vendorDir.'/phpxml
 
 include_once($vendorDir.'/autoload.php');
 
+define('JSXMLRPC_BASEURL', '/jsxmlrpc/debugger/');
+
 include_once($vendorDir.'/phpxmlrpc/phpxmlrpc/debugger/controller.php');

@@ -41,8 +41,8 @@ Development
 To build and test locally the Container, you should follow a workflow similar to:
 
     git clone https://github.com/gggeek/phpxmlrpc-debugger.git
-    docker build -t phpxmlrpc-debugger phpxmlrpc-debugger-local
-    docker run -ti -p 80:80 -p 443:443 ghcr.io/gggeek/phpxmlrpc-debugger-local
+    docker build -t phpxmlrpc-debugger-local phpxmlrpc-debugger
+    docker run -ti -p 80:80 -p 443:443 phpxmlrpc-debugger-local
 
 License
 -------

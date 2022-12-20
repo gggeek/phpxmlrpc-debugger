@@ -12,10 +12,11 @@ cd "${APP_DIR}"
 composer install --optimize-autoloader --no-interaction
 chown -R www-data:www-data vendor
 
-# @todo we should move this block to composer.json
+# @todo we could move this block to composer.json
 cd /tmp
-# @todo use the zip file matching the tag - the other one misses the visualeditor.php file
-TAG=$(curl -s https://api.github.com/repos/gggeek/jsxmlrpc/releases/latest | grep "tag_name" | cut -d : -f 2,3 | tr -d \" | tr -d , | tr -d ' ')
+# we use the zip file matching the tag - the other one misses the visualeditor.html file
+#TAG=$(curl -s https://api.github.com/repos/gggeek/jsxmlrpc/releases/latest | grep "tag_name" | cut -d : -f 2,3 | tr -d \" | tr -d , | tr -d ' ')
+TAG="$(npm show @jsxmlrpc/jsxmlrpc@0.6 version | tail -1 | awk '{print $2}' | tr -d "'")"
 curl -L -o jsxmlrpc.zip "https://github.com/gggeek/jsxmlrpc/archive/refs/tags/${TAG}.zip"
 unzip jsxmlrpc.zip
 mv jsxmlrpc-* jsxmlrpc

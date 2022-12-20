@@ -12,6 +12,7 @@ ARG PHP_VERSION=default
 COPY docker/setup/*.sh /root/setup/
 COPY docker/config/* /root/config/
 COPY docker/entrypoint.sh /root/entrypoint.sh
+COPY src /var/www/html_/
 
 RUN mkdir -p /usr/share/man/man1 && \
   apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
@@ -21,16 +22,14 @@ RUN mkdir -p /usr/share/man/man1 && \
   ./setup_apache.sh && \
   ./setup_php.sh "${PHP_VERSION}" && \
   ./setup_composer.sh && \
-  chmod 755 /root/entrypoint.sh && \
+  rm -rf /var/www/html && mv /var/www/html_ /var/www/html && chown -R www-data:www-data /var/www/html && \
+  /root/setup/setup_app.sh /var/www/html && \
+  rm -rf /root/.cache/composer/ && \
+  ./remove_packages.sh && \
   apt-get autoremove -y && \
   apt-get purge -y --auto-remove && \
-  rm -rf /var/lib/apt/lists/* /var/log/alternatives.log /var/log/apt/* /var/log/dpkg.log
-
-# has to be here for the www-data user to exist
-COPY --chown=www-data:www-data src /var/www/html/
-
-RUN /root/setup/setup_app.sh /var/www/html && \
-    rm -rf /root/.cache/composer/
+  rm -rf /var/lib/apt/lists/* /var/log/alternatives.log /var/log/apt/* /var/log/dpkg.log && \
+  chmod 755 /root/entrypoint.sh
 
 EXPOSE 80 443
 

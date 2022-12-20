@@ -7,6 +7,6 @@ set -e
 echo "Installing base software packages..."
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    curl git sudo unzip
+    curl git nodejs npm sudo unzip
 
 echo "Done installing base software packages"
