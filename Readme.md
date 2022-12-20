@@ -24,7 +24,7 @@ Then access `http://localhost/`, or whatever the hostname/IP is of the VM used t
 
 Notes:
 
-* the container ldoistens on ports 80 and 443. It is up to you to remap them to the desired ports on the hosts, or to limit
+* the container listens on ports 80 and 443. It is up to you to remap them to the desired ports on the hosts, or to limit
   access to them from a specific subnet, f.e to limit access to it from localhost.
 
   *NB:* the container runs as an open relay for http requests. Running the container with public access is _not_
