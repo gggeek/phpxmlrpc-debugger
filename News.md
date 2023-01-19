@@ -1,3 +1,7 @@
+## version 0.0.5 - 2023-1-19
+
+- bump the included components to phpxmlrpc-extras 1.0.0-beta2, fixing the visual editing of test data in the demo server
+
 ## version 0.0.4 - 2023-1-11
 
 - bump the included components to phpxmlrpc 4.9.5

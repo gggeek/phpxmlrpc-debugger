@@ -37,6 +37,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_SERVER['CONTENT_TYPE']) &&
     $s = new JsonRpcServer($signatures, false);
 } else {
     $s = new SelfDocumentingServer($signatures, false);
+    $s->editorpath = '../jsxmlrpc/debugger/';
 }
 
 // NB: when enabling debug mode, the server prepends the response's Json payload with a javascript comment.
