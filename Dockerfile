@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=jammy
+ARG UBUNTU_VERSION=noble
 
 FROM ubuntu:${UBUNTU_VERSION}
 
@@ -9,16 +9,14 @@ LABEL org.opencontainers.image.licenses=BSD
 
 ARG PHP_VERSION=default
 
-COPY docker/setup/*.sh /root/setup/
+COPY --chmod=755 docker/setup/*.sh /root/setup/
 COPY docker/config/* /root/config/
-COPY docker/entrypoint.sh /root/entrypoint.sh
+COPY --chmod=755 docker/entrypoint.sh /root/entrypoint.sh
 COPY src /var/www/html_/
 
 RUN mkdir -p /usr/share/man/man1 && \
-  apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
-  chmod 755 /root/setup/*.sh && \
   cd /root/setup && \
-  ./install_packages.sh && \
+  ./install_packages.sh -u && \
   ./setup_apache.sh && \
   ./setup_php.sh "${PHP_VERSION}" && \
   ./setup_composer.sh && \
@@ -26,10 +24,8 @@ RUN mkdir -p /usr/share/man/man1 && \
   /root/setup/setup_app.sh /var/www/html && \
   rm -rf /root/.cache/composer/ && \
   ./remove_packages.sh && \
-  apt-get autoremove -y && \
-  apt-get purge -y --auto-remove && \
-  rm -rf /var/lib/apt/lists/* /var/log/alternatives.log /var/log/apt/* /var/log/dpkg.log && \
-  chmod 755 /root/entrypoint.sh
+  apt-get autoremove -y && apt-get -y autoclean && apt-get -y clean && apt-get purge -y --auto-remove && \
+  rm -rf /var/lib/apt/lists/* /var/log/alternatives.log /var/log/apt/* /var/log/dpkg.log
 
 EXPOSE 80 443
 
