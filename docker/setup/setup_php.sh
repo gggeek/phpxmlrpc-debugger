@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Has to be run as admin
+# Has to be run as root
 
 # @todo make it optional to install xdebug. It is fe. missing in sury's ppa for Xenial
 # @todo make it optional to disable xdebug ?
@@ -11,6 +11,8 @@ echo "Installing PHP version '${1}'..."
 
 SCRIPT_DIR="$(dirname -- "$(readlink -f "$0")")"
 
+export DEBIAN_FRONTEND=noninteractive
+
 configure_php_ini() {
     # note: these settings are not required for cli config
     echo "cgi.fix_pathinfo = 1" >> "${1}"
@@ -20,8 +22,12 @@ configure_php_ini() {
     # @todo make this optional
     if which phpdismod >/dev/null 2>/dev/null; then
         phpdismod xdebug
+    elif [ -f "/etc/php/$PHP_VERSION/mods-available/xdebug.ini" ]; then
+        mv "/etc/php/$PHP_VERSION/mods-available/xdebug.ini" "/etc/php/$PHP_VERSION/mods-available/xdebug.ini.bak"
     elif [ -f /usr/local/php/$PHP_VERSION/etc/conf.d/20-xdebug.ini ]; then
         mv /usr/local/php/$PHP_VERSION/etc/conf.d/20-xdebug.ini /usr/local/php/$PHP_VERSION/etc/conf.d/20-xdebug.ini.bak
+    else
+        echo "Could not disable loading of xdebug - xdebug.ini file not found" >&2
     fi
 }
 
@@ -47,7 +53,7 @@ if [ "${PHP_VERSION}" = default ]; then
         PHPSUFFIX=
     fi
     # @todo check for mbstring presence in php5 (jessie) packages
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    apt-get install -y \
         php${PHPSUFFIX} \
         php${PHPSUFFIX}-cli \
         php${PHPSUFFIX}-dom \
@@ -65,26 +71,34 @@ else
 
     if [ "${PHP_VERSION}" = 5.3 -o "${PHP_VERSION}" = 5.4 -o "${PHP_VERSION}" = 5.5 ]; then
         echo "Using PHP from shivammathur/php5-ubuntu..."
-
-        # @todo this set of packages has only been tested on Bionic, Focal and Jammy so far
-        if [ "${DEBIAN_VERSION}" = jammy ]; then
-            ENCHANTSUFFIX='-2'
+        if [ "${DEBIAN_VERSION}" = jammy ] || [ "${DEBIAN_VERSION}" = noble ]; then
+            PACKAGES='enchant-2'
+        else
+            PACKAGES='enchant'
         fi
-        DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        # note: on ubuntu 24, libtinfo5 is missing, and libodbc1 is replaced by libodbc2
+        if [ "${DEBIAN_VERSION}" = noble ]; then
+            PACKAGES="$PACKAGES libodbc2"
+            # @todo is libtinfo required?
+            #wget https://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
+            #apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
+            #rm ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
+        else
+            PACKAGES="$PACKAGES libodbc1 libtinfo5"
+        fi
+        # @todo this set of packages has only been tested on Bionic, Focal, Jammy and Noble so far
+        apt-get install -y \
             curl \
-            enchant${ENCHANTSUFFIX} \
             imagemagick \
             libc-client2007e \
             libcurl3-gnutls \
             libmcrypt4 \
-            libodbc1 \
             libpq5 \
             libqdbm14 \
-            libtinfo5 \
             libxpm4 \
             libxslt1.1 \
             mysql-common \
-            zstd
+            zstd $PACKAGES
 
         if [ ! -d /usr/include/php ]; then mkdir -p /usr/include/php; fi
 
@@ -109,7 +123,7 @@ else
         LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
         apt-get update
 
-        DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        apt-get install -y \
             php${PHP_VERSION} \
             php${PHP_VERSION}-cli \
             php${PHP_VERSION}-dom \
