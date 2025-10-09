@@ -1,3 +1,12 @@
+## version 0.0.7 - 2025-10-9
+
+- bump the included components to phpxmlrpc 4.11.3. You can find the fixes in that project's respective NEWS files.
+
+- Rebase the container on Ubuntu 24.04 Noble, using PHP 8.3
+
+- add a CI job running on GitHub Actions to insure we never break building the container
+
+
 ## version 0.0.6 - 2024-4-16
 
 - bump the included components to phpxmlrpc 4.10.2, phpxmlrpc-jsonrpc 1.0.0-beta2, phpxmlrpc-extras 1.0.0-beta4.
