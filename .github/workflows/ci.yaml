@@ -12,3 +12,5 @@ jobs:
 
             -   name: build container
                 run: docker build -t phpxmlrpc-debugger-local .
+
+            # @todo start the container, check that the debugger is working with a few simple http requests
