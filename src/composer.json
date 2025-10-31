@@ -2,8 +2,8 @@
   "name": "phpxmlrpc/debugger",
   "description": "Pulling together all the different phpxmlrpc packages to provide a batteries-included debugger and demo server",
   "require": {
-    "phpxmlrpc/phpxmlrpc": "^4.10.2",
-    "phpxmlrpc/jsonrpc": ">=1.0.0-beta2",
+    "phpxmlrpc/phpxmlrpc": "^4.11.4",
+    "phpxmlrpc/jsonrpc": "^1.0.0",
     "phpxmlrpc/extras": ">= 1.0.0-beta4"
   },
   "minimum-stability": "beta",
