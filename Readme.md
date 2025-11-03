@@ -1,9 +1,9 @@
 XMLRPC Debugger Image
 =====================
 
-An xmlrpc and jsonrpc graphical debugger, made available as Docker container.
+An xml-rpc and jso-nrpc graphical debugger, made available as Docker container.
 
-Also makes available a 'demo' combined xmlrpc/jsonrpoc server, which can be used as test target.
+Also makes available a 'demo' combined xml-rpc/json-rpc server, which can be used as test target.
 
 Based on the https://github.com/gggeek/phpxmlrpc, https://github.com/gggeek/phpxmlrpc-jsonrpc and
 https://github.com/gggeek/jsxmlrpc libraries.

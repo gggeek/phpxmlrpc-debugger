@@ -7,7 +7,7 @@ if (isset($_GET['showSource']) && $_GET['showSource']) {
 }
 
 $vendorDir = __DIR__.'/../../vendor';
-$signaturesDir = $vendorDir . '/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
+$signaturesDir = $vendorDir.'/phpxmlrpc/phpxmlrpc/demo/server/methodProviders';
 
 if (!file_exists($vendorDir.'/autoload.php') || !is_dir($signaturesDir))
     die('Please install the dependencies using composer');
