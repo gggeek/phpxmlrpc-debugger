@@ -1,3 +1,8 @@
+## version 0.0.9 - 2025-11-12
+
+- bump the included components to phpxmlrpc 4.11.5, phpjsonrpc 1.0.1. You can find the fixes in that project's
+  respective NEWS files.
+
 ## version 0.0.8 - 2025-10-31
 
 - bump the included components to phpxmlrpc 4.11.3, phpjsonrpc 1.0.0. You can find the fixes in that project's

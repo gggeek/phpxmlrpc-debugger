@@ -4,7 +4,7 @@
   "require": {
     "phpxmlrpc/phpxmlrpc": "^4.11.4",
     "phpxmlrpc/jsonrpc": "^1.0.0",
-    "phpxmlrpc/extras": ">= 1.0.0-beta4"
+    "phpxmlrpc/extras": "^1.0.0"
   },
   "minimum-stability": "beta",
   "prefer-stable": true,
